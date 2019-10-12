@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/",
+    "component": "HomeRoute"
+  },
+  {
+    "path": "/posts",
+    "component": "Posts"
+  },
+  {
+    "path": "/contact",
+    "component": "Contact"
+  }
+]
