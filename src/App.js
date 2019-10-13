@@ -6,9 +6,19 @@ import NavBar from "./components/layout/navbar";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import RouteList from "./components/routes/routes";
 
+import { simpleAction } from "./redux/actions/simpleAction";
+import { connect } from "react-redux";
+
 // Theme imports
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./theme";
+
+const mapStateToProps = state => ({
+  ...state
+});
+const mapDispatchToProps = dispatch => ({
+  simpleAction: () => dispatch(simpleAction())
+});
 
 class App extends Component {
   render() {
@@ -23,6 +33,10 @@ class App extends Component {
               <NavBar />
             </Toolbar>
           </AppBar>
+          <pre>{JSON.stringify(this.props)}</pre>
+          <button onClick={event => this.props.simpleAction()}>
+            Test Redux action
+          </button>
           <Switch>
             <RouteList />
           </Switch>
@@ -31,4 +45,7 @@ class App extends Component {
     );
   }
 }
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
