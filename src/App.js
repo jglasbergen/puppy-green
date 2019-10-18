@@ -1,24 +1,28 @@
-import React, { Component } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import TypoGraphy from "@material-ui/core/Typography";
-import NavBar from "./components/layout/navbar";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
-import RouteList from "./components/routes/routes";
-
-import { simpleAction } from "./redux/actions/simpleAction";
-import { connect } from "react-redux";
-
 // Theme imports
 import { ThemeProvider } from "@material-ui/styles";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import SimpleBottomNavigation from "./components/layout/bottombar";
+import NavBar from "./components/layout/navbar";
+import RouteList from "./components/routes/routes";
+import { jsonAction, simpleAction } from "./redux/actions/simpleAction";
 import theme from "./theme";
+
+
 
 const mapStateToProps = state => ({
   ...state
 });
-const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction())
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    simpleAction: () => dispatch(simpleAction()),
+    jsonAction: () => dispatch(jsonAction())
+  };
+};
 
 class App extends Component {
   render() {
@@ -33,18 +37,16 @@ class App extends Component {
               <NavBar />
             </Toolbar>
           </AppBar>
-          <pre>{JSON.stringify(this.props)}</pre>
-          <button onClick={event => this.props.simpleAction()}>
-            Test Redux action
-          </button>
           <Switch>
             <RouteList />
           </Switch>
         </Router>
+        <SimpleBottomNavigation />
       </ThemeProvider>
     );
   }
 }
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
